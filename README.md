@@ -7,4 +7,7 @@
 ![image](https://github.com/guswns00123/Weekly_Recommend_LottoNum/assets/65805176/acd13bd4-0643-467c-90fb-7b3ead55373a)
 
 ### Built With
-
+#017CEE
+#569A31
+#3776AB
+#4169E1

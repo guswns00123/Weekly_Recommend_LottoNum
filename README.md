@@ -10,3 +10,4 @@
  <img src="https://img.shields.io/badge/Apache Ariflow-017CEE?style=flat&logo=apacheairflow&logoColor=white"/>
   <img src="https://img.shields.io/badge/Postgresql-4169E1?style=flat&logo=postgresql&logoColor=white"/>
     <img src="https://img.shields.io/badge/AWS S3-569A31?style=flat&logo=amazons3&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white"/>

@@ -8,4 +8,4 @@
 
 ### Built With
  <img src="https://img.shields.io/badge/Apache Ariflow-017CEE?style=flat&logo=ApacheAriflow&logoColor=white"/>
-  <img src="https://img.shields.io/badge/postgresql-4169E1?style=flat&logo=PostgresSQL&logoColor=white"/>
+  <img src="https://img.shields.io/badge/postgresql-4169E1?style=flat&logo=postgresql&logoColor=white"/>

@@ -7,4 +7,4 @@
 ![image](https://github.com/guswns00123/Weekly_Recommend_LottoNum/assets/65805176/acd13bd4-0643-467c-90fb-7b3ead55373a)
 
 ### Built With
- <img src="https://img.shields.io/badge/Apache Ariflow-017CEE?style=flat&logo=Apache Ariflow&logoColor=white"/>
+ <img src="https://img.shields.io/badge/ApacheAriflow-017CEE?style=flat&logo=Apache Ariflow&logoColor=white"/>

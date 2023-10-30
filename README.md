@@ -15,7 +15,7 @@
 2. 각 task들을 지속적으로 모니터링해보기
 
 3. 다양한 외부 툴(DB, kakao 알림)들을 사용해보기
-4. 
+   
 ## Main Features
 ![image](https://github.com/guswns00123/Weekly_Recommend_LottoNum/assets/65805176/acd13bd4-0643-467c-90fb-7b3ead55373a)
 

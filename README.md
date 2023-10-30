@@ -10,11 +10,13 @@
 
 프로젝트의 가장 큰 목표
 
-1. 먼저 주기적인 데이터를 지속적으로 업데이트하여 매 주 새로운 정보 받아보기
+1. 주기적인 데이터(매주 로또당첨번호)를 주기적으로 AWS S3, PostgresDB(local)에 로드하기
 
-2. 각 task들을 지속적으로 모니터링해보기
+2. Postgres db에 있는 데이터를 불러와 skickit-learn을 사용하여 변환시켜 로또 추천번호를 메일과 카카오톡으로 매주 금요일에 전송시키기
 
-3. 다양한 외부 툴(DB, kakao 알림)들을 사용해보기
+3. 각 task들을 지속적으로 모니터링해보기
+
+4. 다양한 외부 툴(DB, kakao 알림)들을 사용해보기
    
 ## Main Features
 ![image](https://github.com/guswns00123/Weekly_Recommend_LottoNum/assets/65805176/acd13bd4-0643-467c-90fb-7b3ead55373a)

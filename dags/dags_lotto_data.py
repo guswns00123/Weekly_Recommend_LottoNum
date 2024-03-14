@@ -4,7 +4,7 @@ import pendulum
 from airflow import Dataset
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
-from hooks.custom_postgres_hook import CustomPostgresHook
+from hooks.custom_postgres_hook_lotto import CustomPostgresHook
 from datetime import timedelta
 from config.on_failure_callback_to_kakao import on_failure_callback_to_kakao
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook

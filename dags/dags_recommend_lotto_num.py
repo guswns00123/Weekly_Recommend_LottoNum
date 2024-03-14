@@ -8,7 +8,7 @@ from datetime import timedelta
 import pendulum
 from config.on_failure_callback_to_kakao import on_failure_callback_to_kakao
 from config.send_msg_to_kakao import send_success_msg_to_kakao
-from hooks.custom_postgres_hook import CustomPostgresHook
+from hooks.custom_postgres import CustomPostgresHook
 
 dataset_dags_dataset_producer = Dataset("dags_lotto_data")
 

@@ -27,7 +27,7 @@ class LottoApiToCsvOperator(BaseOperator):
             row_df = self._call_api(self.base_url, start_drwNo)
             print(row_df)
             total_row_df = pd.concat([total_row_df, row_df])
-            if start_drwNo == 1080:
+            if start_drwNo == 1110:
                 break
             else:
                 start_drwNo += 1
@@ -51,7 +51,11 @@ class LottoApiToCsvOperator(BaseOperator):
         response = requests.get(request_url, headers)
         
         contents = json.loads(response.text)
+        
+        selected_columns = ["drwNoDate", "drwtNo1", "drwtNo2","drwtNo3","drwtNo4","drwtNo5","drwtNo6","bnusNo",'returnValue']  # 원하는 칼럼들의 이름
+        selected_values = [contents.get(column_name) for column_name in selected_columns]  # 원하는 칼럼들의 값들
 
-        row_df = pd.DataFrame([contents.values()], index = [0])
+        row_df = pd.DataFrame([selected_values], columns=selected_columns, index = 0)
+        
 
         return row_df

@@ -2,10 +2,12 @@ from operators.lotto_api_to_csv_operator import LottoApiToCsvOperator
 from airflow import DAG
 import pendulum
 
+
+# 누적 로또 데이터 가져오기
 with DAG(
     dag_id='dags_lotto_api',
     schedule=None,
-    start_date=pendulum.datetime(2023,4,1, tz='Asia/Seoul'),
+    start_date=pendulum.datetime(2024,3,17, tz='Asia/Seoul'),
     catchup=False
 ) as dag:
     tb_lotto_status = LottoApiToCsvOperator(

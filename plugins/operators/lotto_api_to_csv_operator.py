@@ -55,7 +55,7 @@ class LottoApiToCsvOperator(BaseOperator):
         selected_columns = ["drwNoDate", "drwtNo1", "drwtNo2","drwtNo3","drwtNo4","drwtNo5","drwtNo6","bnusNo",'returnValue']  # 원하는 칼럼들의 이름
         selected_values = [contents.get(column_name) for column_name in selected_columns]  # 원하는 칼럼들의 값들
 
-        row_df = pd.DataFrame([selected_values], columns=selected_columns, index = 0)
+        row_df = pd.DataFrame([selected_values], columns=selected_columns)
         
 
         return row_df

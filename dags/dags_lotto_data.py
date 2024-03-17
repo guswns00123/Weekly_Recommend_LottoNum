@@ -4,7 +4,7 @@ import pendulum
 from airflow import Dataset
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
-from hooks.custom_postgres_hook_lotto import CustomPostgresHook
+from hooks.custom_postgres_hook_lotto import CustomPostgresHookLotto
 from datetime import timedelta
 from config.on_failure_callback_to_kakao import on_failure_callback_to_kakao
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
@@ -40,7 +40,7 @@ with DAG(
     )
 
     def insrt_postgres(postgres_conn_id, tbl_nm, file_nm, **kwargs):
-        custom_postgres_hook = CustomPostgresHook(postgres_conn_id=postgres_conn_id)
+        custom_postgres_hook = CustomPostgresHookLotto(postgres_conn_id=postgres_conn_id)
         custom_postgres_hook.bulk_load(table_name=tbl_nm, file_name=file_nm, delimiter=',', is_header=True, is_replace=True)
 
     insrt_postgresdb = PythonOperator(

@@ -26,7 +26,7 @@ class CustomPostgresHook(BaseHook):
         conn = self.get_conn()
         sql = "select * from lotto_add_table;"
         tb = psql.read_sql(sql,conn)
-        tb = tb.drop(columns=['toSellamnt','returnvalue','drwNoDate',' firstWinamnt','firstPrzwnerCo','firstAccumant','drwNo'])
+        tb = tb.drop(columns=['returnvalue','drwNoDate'])
         tb = tb[['drwtNo1','drwNo2','drwtNo3','drwtNo4','drwNo5','drwNo6','bnsNo']]
         tb['num'] = 0
         tb = tb.sample(n=700)

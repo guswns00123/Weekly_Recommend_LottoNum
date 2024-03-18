@@ -3,9 +3,11 @@ from airflow import DAG
 import pendulum
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
-from hooks.custom_postgres_hook_lotto import CustomPostgresHook
+from hooks.custom_postgres_hook_lotto import CustomPostgresHookLotto
 from datetime import timedelta
 from airflow import Dataset
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from config.on_failure_callback_to_kakao import on_failure_callback_to_kakao
 
 dataset_dags_dataset_producer = Dataset("dags_lotto_data")
 
@@ -14,7 +16,10 @@ with DAG(
     schedule='0 0 * * 6',
     start_date=pendulum.datetime(2023,10,1, tz='Asia/Seoul'),
     catchup=False,
-
+    default_args={
+        'on_failure_callback':on_failure_callback_to_kakao,
+        'execution_timeout': timedelta(seconds=180)
+    }
 ) as dag:
     
     start_task = BashOperator(
@@ -33,7 +38,7 @@ with DAG(
     )
 
     def insrt_postgres(postgres_conn_id, tbl_nm, file_nm, **kwargs):
-        custom_postgres_hook = CustomPostgresHook(postgres_conn_id=postgres_conn_id)
+        custom_postgres_hook = CustomPostgresHookLotto(postgres_conn_id=postgres_conn_id)
         custom_postgres_hook.bulk_load(table_name=tbl_nm, file_name=file_nm, delimiter=',', is_header=True, is_replace=True)
 
     insrt_postgresdb = PythonOperator(
@@ -45,7 +50,21 @@ with DAG(
                    'file_nm':'/opt/airflow/files/TbLottoAdd/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/TbLottoStatus.csv'}
     )
 
-
+    def upload_to_s3(filename, key, bucket_name):
+        hook = S3Hook('aws_default')
+        hook.load_file(filename=filename,
+                       key = key,
+                       bucket_name=bucket_name,
+                       replace=True)
+    
+    upload_s3 = PythonOperator(
+        task_id = 'upload_s3',
+        python_callable=upload_to_s3,
+        op_kwargs={
+            'filename' : '/opt/airflow/files/TbLottoAdd/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/TbLottoStatus.csv',
+            'key' : 'lotto/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/TbLottoStatus.csv',
+            'bucket_name' : 'morzibucket'
+        })
 
     finish_task = BashOperator(
         task_id='finish_task',
@@ -53,4 +72,4 @@ with DAG(
         bash_command='echo "전 주 데이터 추가 작업 완료"'
     )
 
-    start_task >> tb_lotto_add >> insrt_postgresdb >> finish_task
+    start_task >> tb_lotto_add >> [insrt_postgresdb, upload_s3] >> finish_task

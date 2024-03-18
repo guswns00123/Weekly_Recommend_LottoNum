@@ -26,8 +26,8 @@ class CustomPostgresHook(BaseHook):
         conn = self.get_conn()
         sql = "select * from lotto_add_table;"
         tb = psql.read_sql(sql,conn)
-        tb = tb.drop(columns=['returnvalue','drwNoDate'])
-        tb = tb[['drwtNo1','drwNo2','drwtNo3','drwtNo4','drwNo5','drwNo6','bnsNo']]
+        tb = tb.drop(columns=['returnValue','drwNoDate'])
+        tb = tb[['drwtNo1','drwtNo2','drwtNo3','drwtNo4','drwtNo5','drwtNo6','bnusNo']]
         tb['num'] = 0
         tb = tb.sample(n=700)
         tb.head()
@@ -35,12 +35,12 @@ class CustomPostgresHook(BaseHook):
 
         x = tb['num']
         num_1 = tb['drwtNo1']
-        num_2 = tb['drwNo2']
+        num_2 = tb['drwtNo2']
         num_3 = tb['drwtNo3']
         num_4 = tb['drwtNo4']
-        num_5 = tb['drwNo5']
-        num_6 = tb['drwNo6']
-        num_bns = tb['bnsNo']
+        num_5 = tb['drwtNo5']
+        num_6 = tb['drwtNo6']
+        num_bns = tb['bnusNo']
 
         pre_num_1 = LinearRegression()
         pre_num_1.fit(x.values.reshape(-1,1),num_1)

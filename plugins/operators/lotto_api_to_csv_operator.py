@@ -27,11 +27,12 @@ class LottoApiToCsvOperator(BaseOperator):
             row_df = self._call_api(self.base_url, start_drwNo)
             print(row_df)
             total_row_df = pd.concat([total_row_df, row_df])
-            if start_drwNo == 1110:
+            if start_drwNo == 1000:
                 break
             else:
                 start_drwNo += 1
         if not os.path.exists(self.path):
+            print("check!!")
             os.system(f'mkdir -p {self.path}')
         total_row_df.to_csv(self.path + '/' + self.file_name, encoding='utf-8', index=False)
 
@@ -42,9 +43,9 @@ class LottoApiToCsvOperator(BaseOperator):
         headers={'Content-Type': 'application/json',
                 'charset': 'utf-8',
                 'Accept': '*/*'}
-
+        print("111")
         request_url = f'{base_url}={drwNo}'
-        
+        print(request_url) 
         if self.base_dt is not None:
             request_url = f'{base_url}={drwNo}'
         

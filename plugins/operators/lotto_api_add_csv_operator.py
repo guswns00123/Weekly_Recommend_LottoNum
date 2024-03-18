@@ -24,11 +24,11 @@ class LottoApiAddCsvOperator(BaseOperator):
         #'파일경로/파일이름.csv'
         data = pd.read_csv(self.file)
 
-        start_drwNo = 1082
+        start_drwNo = 1000
         while True:
             self.log.info(f'시작:{start_drwNo}')
             row_df = self._call_api(self.base_url, start_drwNo)
-            if row_df.loc[0,'returnvalue'] == 'fail':
+            if row_df.loc[0,'returnValue'] == 'fail':
                 break
             if self.time == row_df.loc[0,'drwNoDate'].replace("-","") :
                 data = pd.concat([data,row_df], ignore_index= True)
@@ -57,9 +57,14 @@ class LottoApiAddCsvOperator(BaseOperator):
             print(contents['returnValue'])
             if contents['returnValue'] == "fail":
                 print("check")
-                row_df = pd.DataFrame([contents.values()], columns = ['returnvalue'])
+                selected_columns = ["drwNoDate", "drwtNo1", "drwtNo2","drwtNo3","drwtNo4","drwtNo5","drwtNo6","bnusNo",'returnValue']  # 원하는 칼럼들의 이름
+                selected_values = [contents.get(column_name) for column_name in selected_columns]  # 원하는 칼럼들의 값들
+
+                row_df = pd.DataFrame([selected_values], columns=selected_columns)
             else:   
-                row_df = pd.DataFrame([contents.values()], columns = ['toSellamnt','returnvalue','drwNoDate','firstWinamnt','drwNo6','drwtNo4','firstPrzwnerCo','drwNo5',
-                                                                'bnsNo','firstAccumant','drwNo','drwNo2','drwtNo3','drwtNo1'])
+                selected_columns = ["drwNoDate", "drwtNo1", "drwtNo2","drwtNo3","drwtNo4","drwtNo5","drwtNo6","bnusNo",'returnValue']  # 원하는 칼럼들의 이름
+                selected_values = [contents.get(column_name) for column_name in selected_columns]  # 원하는 칼럼들의 값들
+
+                row_df = pd.DataFrame([selected_values], columns=selected_columns)
 
             return row_df

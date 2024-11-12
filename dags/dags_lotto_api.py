@@ -2,8 +2,6 @@ from operators.lotto_api_to_csv_operator import LottoApiToCsvOperator
 from airflow import DAG
 from airflow.decorators import task
 import pendulum
-
-
 from datetime import timedelta
 
 default_args = {
